@@ -1,17 +1,31 @@
-import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import Nav from '../components/Nav/Nav'
 import SignUp from '../pages/Auth/SignUp'
 
 //Services
-
+import { getUser, logout } from '../services/authService'
 //Pages + Components
 
 const App = () => {
 
+  const navigate = useNavigate()
+const [user, setUser] = useState(getUser())
+  // Function below will be passed down to SignUp.jsx for use in handleSubmit
+const handleSignupOrLogin = async () => {
+  const currentUser = getUser()
+  setUser(currentUser)
+}
+
+const handleLogout = () => {
+  logout()
+  setUser(null)
+  navigate('/')
+}
+
   return (
     <div className="App">
-      <Nav />
+      <Nav user={user} handleLogout={handleLogout} />
       <Routes>
         
         <Route path='/'
@@ -23,7 +37,7 @@ const App = () => {
         />
 
         <Route path='/signup'
-          element={<SignUp />}
+          element={<SignUp handleSignupOrLogin={handleSignupOrLogin} />}
         />
 
         <Route path='/posts'
