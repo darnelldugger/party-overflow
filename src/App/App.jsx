@@ -1,6 +1,7 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Nav from '../components/Nav/Nav'
+import SignUp from '../pages/Auth/SignUp'
 
 //Services
 
@@ -22,7 +23,7 @@ const App = () => {
         />
 
         <Route path='/signup'
-          element={<h1>Sign Up</h1>}
+          element={<SignUp />}
         />
 
         <Route path='/posts'
