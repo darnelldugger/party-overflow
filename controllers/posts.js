@@ -39,8 +39,85 @@ const show = async (req, res) => {
     }
 }
 
+const update = async (req, res) => {
+    try {
+        const updateData = { is_resolved: true }
+        const updatedPost = await Post.findByIdAndUpdate(
+            req.params.id,
+            updateData,
+            { new: true }
+        )
+        return res.status(200).json(updatedPost)
+    } catch (err) {
+        return res.status(500).json(err)
+    }
+}
+
+const deletePost = async (req, res) => {
+    try {
+        await Post.findByIdAndDelete(req.params.id)
+        const profile = await Profile.findById(req.user.profile)
+        profile.posts.remove({ _id: req.params.id })
+        await profile.save()
+        return res.status(204).end()
+    } catch (err) {
+        return res.status(500).json(err)
+    }
+}
+const createComment = async (req, res) => {
+    try {
+        req.body.commenter = req.user.profile
+        const post = await Post.findById(req.params.id)
+        post.comments.push(req.body)
+        await post.save()
+        const newComment = post.comments[post.comments.length - 1]
+        return res.status(201).json(newComment)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+}
+
+const markCommentAsSolution = async (req, res) => {
+    try {
+        const updatedPost = await Post.findById(req.params.postId)
+
+        const idx = updatedPost.comments.findIndex(
+            (comment) => comment._id.equals(req.params.commentId)
+        )
+
+        updatedPost.is_resolved = true
+        updatedPost.comments[idx].is_solution = true
+
+        await updatedPost.save()
+        return res.status(200).json(updatedPost)
+
+    } catch (err) {
+        res.status(500).json(err)
+    }
+}
+
+const deleteComment = async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.postId)
+        post.comments.remove({ _id: req.params.commentId })
+
+        await post.save()
+        return res.status(204).end()
+    } catch (err) {
+        res.status(500).json(err)
+    }
+}
+
+
 export {
+    createComment,
+    markCommentAsSolution,
+    deleteComment,
+
+    // Post Controller Functions
     create,
     index,
-    show
+    show,
+    update,
+    deletePost as delete
 }
