@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import '../../styles/Auth.css'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import AvatarSelection from './AvatarSelection'
+import Animation from '../../components/misc/Animation'
 
 
 // Assets
 import cat from '../../assets/avatars/cat.png' //<= included in starter code
+import coder from '../../assets/animation/coder.json'
 
 // Services
 // we will import a sign up service momentarily
@@ -59,7 +61,10 @@ const SignUp = (props) => {
         <div className='form-container'>
           <div className="title-container">
             <h1>Create an Account</h1>
-            <h3>Social media for developers</h3>
+            {msg
+              ? <h3>{msg}</h3>
+              : <h3>Social media for developers</h3>
+            }
           </div>
           <form className="register-form" onSubmit={handleSubmit}>
             <input
@@ -103,12 +108,18 @@ const SignUp = (props) => {
               type="submit"
             >SIGN UP</button>
           </form>
+          <div className="redirect-container">
+            <p>Already have an account?</p>
+            <Link className="redirect-link" to="/signin">
+              Sign In
+            </Link>
+          </div>
         </div>
 
       </div>
 
       <div className="right-container">
-        Animation Here
+        <Animation animData={coder}></Animation>
       </div>
 
     </div>
