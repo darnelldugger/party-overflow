@@ -11,6 +11,7 @@ const Nav = (props) => {
       {props.user
         ? <>
           <NavLink to="/" onClick={props.handleLogout}>Logout</NavLink>
+          <NavLink to='/new'>New Post</NavLink>
         </>
         : <>
           <NavLink to='/signup'>Sign Up</NavLink>
