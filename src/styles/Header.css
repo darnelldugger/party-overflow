@@ -1,0 +1,31 @@
+.hidden-container {
+  width: inherit;
+  position: fixed;
+  background: #0b0b12;
+}
+
+.header {
+  height: 50px;
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  background: #12121b;
+  box-sizing: border-box;
+  border: 1px solid #26262b;
+  color: rgb(200, 200, 200);
+  border-radius: 8px 8px 0px 0px;
+}
+
+
+.header button {
+  margin: 0;
+  font-size: 13px;
+  background: none;
+  margin-left: auto;
+  border-radius: 8px;
+  box-sizing: border-box;
+  padding: 8px 15px 8px 15px;
+  border: 1px solid #292934;
+  color: rgb(200, 200, 200);
+}
