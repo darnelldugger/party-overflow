@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import Nav from '../components/Nav/Nav'
 import SignUp from '../pages/Auth/SignUp'
+import SignIn from '../pages/Auth/SignIn'
 
 //Services
 import { getUser, logout } from '../services/authService'
@@ -33,7 +34,7 @@ const handleLogout = () => {
         />
 
         <Route path='/signin'
-          element={<h1>Sign In</h1>}
+          element={<SignIn handleSignupOrLogin={handleSignupOrLogin} />}
         />
 
         <Route path='/signup'
